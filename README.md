@@ -1,3 +1,1 @@
-# trigger
-# DevOps-Learning-CI-CD
-# DEVOPS_LEARNING-CICD
+# Devops Learning CI/CD

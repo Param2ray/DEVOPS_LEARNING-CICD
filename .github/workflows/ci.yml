@@ -1,6 +1,6 @@
 name: automate image push to dockerhub
 
-on:
+on: [push]
 
 jobs:
   build-and-publish:

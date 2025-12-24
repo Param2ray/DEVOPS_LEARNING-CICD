@@ -1,0 +1,11 @@
+.env
+.DS_Store
+
+# Ignore secrets
+**/secrets.yaml
+
+# Ignore dependencies
+node_modules/
+DevOps-Learning-CUSTOM/
+package.json
+package-lock.json

@@ -1,6 +1,7 @@
 name: automate image push to dockerhub
 
-# on: [push]
+on:
+  workflow_dispatch:
 
 jobs:
   build-and-publish:

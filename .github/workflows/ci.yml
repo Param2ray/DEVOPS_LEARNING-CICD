@@ -1,7 +1,7 @@
 name: automate image push to dockerhub
 
 on:
-  workflow_dispatch:
+  workflow_dispatch
 
 jobs:
   build-and-publish:

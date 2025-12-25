@@ -6,13 +6,11 @@ on:
     paths:
       - "CICD/**"
       - ".github/workflows/deploy.yml"
-      - "README.md"
   pull_request:
     branches: [ main ]
     paths:
       - "CICD/**"
       - ".github/workflows/deploy.yml"
-      - "README.md"
 
 jobs:
   checks:
@@ -21,33 +19,27 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        # Downloads your repo onto the runner so it can access CICD/, Dockerfile, tests, etc.
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-        # Ensures a consistent Python version for linting and tests.
 
       - name: Install tools (lint + tests)
         run: |
           python -m pip install --upgrade pip
           pip install ruff pytest
-        # Installs the tools we need to lint and run unit tests.
 
       - name: Lint (ruff)
         working-directory: CICD
         run: |
           ruff check .
-        # Runs code quality checks against the Python files in CICD/.
 
       - name: Run unit tests (pytest)
         working-directory: CICD
         run: |
           pytest -q
-        # Runs unit tests (e.g., CICD/test_basic.py). Fails if any test fails.
 
       - name: Docker build check
         run: |
           docker build -f CICD/Dockerfile CICD
-        # Ensures the Dockerfile builds successfully (no pushing—just a build validation).

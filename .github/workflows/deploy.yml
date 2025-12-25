@@ -1,0 +1,45 @@
+name: Task 1 - CI Checks
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - "CICD/**"
+      - ".github/workflows/deploy.yml"
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "CICD/**"
+      - ".github/workflows/deploy.yml"
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install tools (lint + tests)
+        run: |
+          python -m pip install --upgrade pip
+          pip install ruff pytest
+
+      - name: Lint (ruff)
+        working-directory: CICD
+        run: |
+          ruff check .
+
+      - name: Run unit tests (pytest)
+        working-directory: CICD
+        run: |
+          pytest -q
+
+      - name: Docker build check
+        run: |
+          docker build -f CICD/Dockerfile CICD
